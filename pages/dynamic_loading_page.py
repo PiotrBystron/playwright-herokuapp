@@ -2,7 +2,8 @@ from playwright.sync_api import Page, expect
 
 
 class DynamicLoadingPage:
-    URL = "https://the-internet.herokuapp.com/dynamic_loading/1"
+    URL_page_1 = "https://the-internet.herokuapp.com/dynamic_loading/1"
+    URL_page_2 = "https://the-internet.herokuapp.com/dynamic_loading/2"
 
     def __init__(self, page: Page):
         self.page = page
@@ -10,8 +11,11 @@ class DynamicLoadingPage:
         self.hello_world = page.locator("#finish h4")
         self.loading = page.locator("#loading")
 
-    def open(self):
-        self.page.goto(self.URL)
+    def open_page_1(self):
+        self.page.goto(self.URL_page_1)
+
+    def open_page_2(self):
+        self.page.goto(self.URL_page_2)
 
     def click_start(self):
         self.start_button.click()
