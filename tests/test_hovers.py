@@ -1,4 +1,5 @@
 from pages.hovers_page import HoversPage
+import pytest
 
 
 def test_hover_user_profile_1(page):
@@ -30,3 +31,20 @@ def test_hover_user_profile_3(page):
         "name: user3"
     )
     hovers.profile_link_should_be_visible(2)
+
+@pytest.mark.parametrize(
+    "index, user_id",
+    [
+        (0, 1),
+        (1, 2),
+        (2, 3),
+    ]
+)
+def test_profile_link_redirect(page, index, user_id):
+    hovers = HoversPage(page)
+    hovers.open()
+
+    hovers.hover_user(index)
+    hovers.click_profile(index)
+
+    assert page.url.endswith(f"/users/{user_id}")
